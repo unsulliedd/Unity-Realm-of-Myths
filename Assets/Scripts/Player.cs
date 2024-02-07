@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     public PlayerStateMachine stateMachine;
 
     public PlayerIdleState idleState;
+    public PlayerMoveState moveState;
     #endregion
 
     #region Components
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
         stateMachine = new PlayerStateMachine();
 
         idleState = new PlayerIdleState(this, stateMachine, "Idle");
+        moveState = new PlayerMoveState(this, stateMachine, "Move");
 
         Animator = GetComponentInChildren<Animator>();
     }
