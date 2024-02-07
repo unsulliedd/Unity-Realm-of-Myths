@@ -20,16 +20,15 @@ public class Player : MonoBehaviour
     [Header("Move Info")]
     public float moveSpeed = 10f;
     public float jumpForce = 10f;
+    [SerializeField] private bool _isFacingRight = true;
 
     [Header("Collision Check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance = 0.3f;
-    [SerializeField] private bool isGrounded;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float wallCheckDistance = 0.2f;
-    [SerializeField] private bool isTouchingWall;
 
     private void Awake()
     {
@@ -53,13 +52,28 @@ public class Player : MonoBehaviour
     void Update()
     {
         stateMachine.currentState.LogicUpdate();
+        
     }
 
     public void SetVelocity(float xVelocity, float yVelocity)
     {
         Rigidbody2D.velocity = new Vector2(xVelocity, yVelocity);
+        Flip();
     }
 
+    private void Flip()
+    {
+        if (InputHandler.horizontalInput.x < 0 && _isFacingRight)
+        {
+            transform.Rotate(0f, 180f, 0f);
+            _isFacingRight = !_isFacingRight;
+        }
+        else if (InputHandler.horizontalInput.x > 0 && !_isFacingRight)
+        {
+            transform.Rotate(0f, 180f, 0f);
+            _isFacingRight = !_isFacingRight;
+        }
+    }
     public bool CheckIfGrounded() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
     public bool CheckIfTouchingWall() => Physics2D.Raycast(wallCheck.position, Vector2.right, wallCheckDistance, wallLayer);
 
