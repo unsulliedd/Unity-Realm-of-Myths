@@ -22,8 +22,9 @@ public class PlayerGroundedState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
         jumpInput = player.InputHandler.JumpInput;
-        if (jumpInput)
+        if (jumpInput && player.CheckIfGrounded())
         {
             player.InputHandler.JumpInputHelper();
             stateMachine.ChangeState(player.jumpState);

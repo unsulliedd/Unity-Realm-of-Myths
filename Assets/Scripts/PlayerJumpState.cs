@@ -11,7 +11,7 @@ public class PlayerJumpState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        player.SetVelocity(rb.velocity.x,10);
+        player.SetVelocity(rb.velocity.x, player.jumpForce);
     }
 
     public override void Exit()
