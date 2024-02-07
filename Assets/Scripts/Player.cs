@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 
     public PlayerIdleState idleState;
     public PlayerMoveState moveState;
+    public PlayerJumpState jumpState;
+    public PlayerInAirState inAirState;
     #endregion
 
     #region Components
@@ -17,6 +19,7 @@ public class Player : MonoBehaviour
 
     [Header("Move Info")]
     public float moveSpeed = 10f;
+    public float jumpForce = 10f;
 
     private void Awake()
     {
@@ -24,6 +27,8 @@ public class Player : MonoBehaviour
 
         idleState = new PlayerIdleState(this, stateMachine, "Idle");
         moveState = new PlayerMoveState(this, stateMachine, "Move");
+        jumpState = new PlayerJumpState(this, stateMachine, "Jump");
+        inAirState = new PlayerInAirState(this, stateMachine, "Jump");
 
         Animator = GetComponentInChildren<Animator>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -40,7 +45,7 @@ public class Player : MonoBehaviour
         stateMachine.currentState.LogicUpdate();
     }
 
-    public void SetVelocityX(float xVelocity, float yVelocity)
+    public void SetVelocity(float xVelocity, float yVelocity)
     {
         Rigidbody2D.velocity = new Vector2(xVelocity, yVelocity);
     }
