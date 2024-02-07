@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
 
     [Header("Move Info")]
     public float moveSpeed = 10f;
+    public float jumpForce = 10f;
 
     private void Awake()
     {
@@ -44,7 +45,7 @@ public class Player : MonoBehaviour
         stateMachine.currentState.LogicUpdate();
     }
 
-    public void SetVelocityX(float xVelocity, float yVelocity)
+    public void SetVelocity(float xVelocity, float yVelocity)
     {
         Rigidbody2D.velocity = new Vector2(xVelocity, yVelocity);
     }

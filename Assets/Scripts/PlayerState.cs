@@ -25,6 +25,7 @@ public class PlayerState
     public virtual void LogicUpdate()
     {
         xInput = player.InputHandler.horizontalInput.x;
+        player.Animator.SetFloat("yVelocity", rb.velocity.y);
     }
 
     public virtual void PhysicUpdate()

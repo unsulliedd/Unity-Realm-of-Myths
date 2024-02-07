@@ -21,6 +21,8 @@ public class PlayerInAirState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if(rb.velocity.y == 0)
+            stateMachine.ChangeState(player.idleState);
     }
 
     public override void PhysicUpdate()

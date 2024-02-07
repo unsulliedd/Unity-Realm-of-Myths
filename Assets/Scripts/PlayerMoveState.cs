@@ -20,7 +20,7 @@ public class PlayerMoveState : PlayerGroundedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        player.SetVelocityX(xInput * player.moveSpeed, rb.velocity.y);
+        player.SetVelocity(xInput * player.moveSpeed, rb.velocity.y);
         if (xInput == 0)
         {
             stateMachine.ChangeState(player.idleState);
