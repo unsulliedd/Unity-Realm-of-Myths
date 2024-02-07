@@ -16,6 +16,11 @@ public class PlayerMoveState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        player.SetVelocityX(xInput * player.moveSpeed, rb.velocity.y);
+        if (xInput == 0)
+        {
+            stateMachine.ChangeState(player.idleState);
+        }
     }
 
     public override void PhysicUpdate()

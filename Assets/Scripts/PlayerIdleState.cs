@@ -7,11 +7,16 @@ public class PlayerIdleState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        player.SetVelocityX(0f, 0f);
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if (xInput != 0)
+        {
+            stateMachine.ChangeState(player.moveState);
+        }
     }
 
     public override void PhysicUpdate()
