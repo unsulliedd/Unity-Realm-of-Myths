@@ -3,7 +3,7 @@ public class PlayerState
     protected PlayerStateMachine stateMachine;
     protected Player player;
 
-    private string animationBool;
+    private readonly string animationBool;
 
     public PlayerState(Player _player, PlayerStateMachine _stateMachine, string _animationBool)
     {
@@ -14,7 +14,7 @@ public class PlayerState
 
     public virtual void Enter()
     {
-
+        player.Animator.SetBool(animationBool, true);
     }
 
     public virtual void LogicUpdate()
@@ -29,6 +29,6 @@ public class PlayerState
 
     public virtual void Exit()
     {
-
+        player.Animator.SetBool(animationBool, false);
     }
 }
