@@ -1,4 +1,4 @@
-public class PlayerIdleState : PlayerState
+public class PlayerIdleState : PlayerGroundedState
 {
     public PlayerIdleState(Player _player, PlayerStateMachine _stateMachine, string _animationBool) : base(_player, _stateMachine, _animationBool)
     {
@@ -8,6 +8,10 @@ public class PlayerIdleState : PlayerState
     {
         base.Enter();
         player.SetVelocityX(0f, 0f);
+    }
+    public override void Exit()
+    {
+        base.Exit();
     }
 
     public override void LogicUpdate()
@@ -22,9 +26,5 @@ public class PlayerIdleState : PlayerState
     public override void PhysicUpdate()
     {
         base.PhysicUpdate();
-    }
-    public override void Exit()
-    {
-        base.Exit();
     }
 }
