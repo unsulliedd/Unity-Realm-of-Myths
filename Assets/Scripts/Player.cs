@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 
     public PlayerIdleState idleState;
     public PlayerMoveState moveState;
+    public PlayerJumpState jumpState;
+    public PlayerInAirState inAirState;
     #endregion
 
     #region Components
@@ -24,6 +26,8 @@ public class Player : MonoBehaviour
 
         idleState = new PlayerIdleState(this, stateMachine, "Idle");
         moveState = new PlayerMoveState(this, stateMachine, "Move");
+        jumpState = new PlayerJumpState(this, stateMachine, "Jump");
+        inAirState = new PlayerInAirState(this, stateMachine, "Jump");
 
         Animator = GetComponentInChildren<Animator>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
