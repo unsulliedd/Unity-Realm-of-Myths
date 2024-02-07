@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMoveState : PlayerGroundedState
+public class PlayerInAirState : PlayerState
 {
-    public PlayerMoveState(Player _player, PlayerStateMachine _stateMachine, string _animationBool) : base(_player, _stateMachine, _animationBool)
+    public PlayerInAirState(Player _player, PlayerStateMachine _stateMachine, string _animationBool) : base(_player, _stateMachine, _animationBool)
     {
     }
 
@@ -12,6 +12,7 @@ public class PlayerMoveState : PlayerGroundedState
     {
         base.Enter();
     }
+
     public override void Exit()
     {
         base.Exit();
@@ -20,11 +21,8 @@ public class PlayerMoveState : PlayerGroundedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        player.SetVelocity(xInput * player.moveSpeed, rb.velocity.y);
-        if (xInput == 0)
-        {
+        if(rb.velocity.y == 0)
             stateMachine.ChangeState(player.idleState);
-        }
     }
 
     public override void PhysicUpdate()
