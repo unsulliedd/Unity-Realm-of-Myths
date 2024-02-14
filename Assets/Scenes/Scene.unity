@@ -219,8 +219,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  jumpForce: 25
+  facingDirection: 1
   _isFacingRight: 1
+  jumpForce: 25
+  dashForce: 20
+  dashTime: 0.2
+  dashCooldown: 4
   groundCheck: {fileID: 648253072}
   groundLayer:
     serializedVersion: 2

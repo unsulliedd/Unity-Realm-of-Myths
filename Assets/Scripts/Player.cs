@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public PlayerMoveState moveState;
     public PlayerJumpState jumpState;
     public PlayerInAirState inAirState;
+    public PlayerDashState dashState;
     #endregion
 
     #region Components
@@ -20,8 +21,16 @@ public class Player : MonoBehaviour
     #region Variables
     [Header("Move Info")]
     public float moveSpeed = 10f;
-    public float jumpForce = 25;
+    public int facingDirection = 1;
     [SerializeField] private bool _isFacingRight = true;
+
+    [Header("Jump Info")]
+    public float jumpForce = 25;
+
+    [Header("Dash Info")]
+    public float dashForce = 20;
+    public float dashTime = 0.2f;
+    public float dashCooldown = 4f;
 
     [Header("Collision Check")]
     [SerializeField] private Transform groundCheck;
@@ -40,6 +49,7 @@ public class Player : MonoBehaviour
         moveState = new PlayerMoveState(this, stateMachine, "Move");
         jumpState = new PlayerJumpState(this, stateMachine, "Jump");
         inAirState = new PlayerInAirState(this, stateMachine, "Jump");
+        dashState = new PlayerDashState(this, stateMachine, "Dash");
 
         Animator = GetComponentInChildren<Animator>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -73,11 +83,13 @@ public class Player : MonoBehaviour
         {
             transform.Rotate(0f, 180f, 0f);
             _isFacingRight = !_isFacingRight;
+            facingDirection *= -1;
         }
         else if (InputHandler.HorizontalInput.x > 0 && !_isFacingRight)
         {
             transform.Rotate(0f, 180f, 0f);
             _isFacingRight = !_isFacingRight;
+            facingDirection *= -1;
         }
     }
 

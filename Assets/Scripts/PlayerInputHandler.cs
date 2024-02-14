@@ -7,6 +7,15 @@ public class PlayerInputHandler : MonoBehaviour
     public bool JumpInput { get; private set; }
     public bool DashInput { get; private set; }
 
+    #region Timers
+    public float DashTimer;
+    #endregion
+
+    void Update()
+    {
+        DashTimer -= Time.deltaTime;
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
         HorizontalInput = context.ReadValue<Vector2>();
