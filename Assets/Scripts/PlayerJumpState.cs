@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerJumpState : PlayerState
@@ -22,7 +20,8 @@ public class PlayerJumpState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (rb.velocity.y > 0)
+
+        if (rb.velocity.y != 0)
             stateMachine.ChangeState(player.inAirState);
     }
 
