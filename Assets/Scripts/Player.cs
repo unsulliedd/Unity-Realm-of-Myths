@@ -17,18 +17,20 @@ public class Player : MonoBehaviour
     public PlayerInputHandler InputHandler { get; private set; }
     #endregion
 
+    #region Variables
     [Header("Move Info")]
     public float moveSpeed = 10f;
-    public float jumpForce = 10f;
+    public float jumpForce = 25;
     [SerializeField] private bool _isFacingRight = true;
 
     [Header("Collision Check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float groundCheckDistance = 0.3f;
+    [SerializeField] private float groundCheckDistance = 0.45f;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
     [SerializeField] private float wallCheckDistance = 0.2f;
+    #endregion
 
     private void Awake()
     {
@@ -52,7 +54,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         stateMachine.currentState.LogicUpdate();
-        
+    }
+
+    void FixedUpdate()
+    {
+        stateMachine.currentState.PhysicUpdate();
     }
 
     public void SetVelocity(float xVelocity, float yVelocity)
@@ -63,23 +69,24 @@ public class Player : MonoBehaviour
 
     private void Flip()
     {
-        if (InputHandler.horizontalInput.x < 0 && _isFacingRight)
+        if (InputHandler.HorizontalInput.x < 0 && _isFacingRight)
         {
             transform.Rotate(0f, 180f, 0f);
             _isFacingRight = !_isFacingRight;
         }
-        else if (InputHandler.horizontalInput.x > 0 && !_isFacingRight)
+        else if (InputHandler.HorizontalInput.x > 0 && !_isFacingRight)
         {
             transform.Rotate(0f, 180f, 0f);
             _isFacingRight = !_isFacingRight;
         }
     }
-    public bool CheckIfGrounded() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
+
+    public bool CheckIfGrounded() => Physics2D.OverlapCircle(groundCheck.transform.position, groundCheckDistance, groundLayer);
     public bool CheckIfTouchingWall() => Physics2D.Raycast(wallCheck.position, Vector2.right, wallCheckDistance, wallLayer);
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundCheckDistance));
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckDistance);
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
     }
 }
