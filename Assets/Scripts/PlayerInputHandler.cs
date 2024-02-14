@@ -5,6 +5,7 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public Vector2 HorizontalInput { get; private set; }
     public bool JumpInput { get; private set; }
+    public bool DashInput { get; private set; }
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -19,6 +20,15 @@ public class PlayerInputHandler : MonoBehaviour
         if (context.canceled)
             JumpInput = false;
     }
-
     public void JumpInputHelper() => JumpInput = false;
+
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            DashInput = true;
+
+        if (context.canceled)
+            DashInput = false;
+    }
+    public void DashInputHelper() => DashInput = false;
 }
