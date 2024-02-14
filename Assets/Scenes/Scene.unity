@@ -159,7 +159,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -219,13 +219,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  jumpForce: 10
+  jumpForce: 25
   _isFacingRight: 1
   groundCheck: {fileID: 648253072}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  groundCheckDistance: 0.15
+  groundCheckDistance: 0.3
   wallCheck: {fileID: 1565708977}
   wallLayer:
     serializedVersion: 2
@@ -592,7 +592,7 @@ GameObject:
   - component: {fileID: 372991331}
   - component: {fileID: 372991330}
   - component: {fileID: 372991329}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -976,7 +976,7 @@ GameObject:
   - component: {fileID: 642104689}
   - component: {fileID: 642104688}
   - component: {fileID: 642104687}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1120,7 +1120,7 @@ Transform:
   m_GameObject: {fileID: 648253071}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -1.2, z: 0}
+  m_LocalPosition: {x: -0.5, y: -1.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1315,7 +1315,7 @@ GameObject:
   - component: {fileID: 1138276458}
   - component: {fileID: 1138276457}
   - component: {fileID: 1138276456}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Wall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1575,7 +1575,7 @@ GameObject:
   - component: {fileID: 1241625284}
   - component: {fileID: 1241625283}
   - component: {fileID: 1241625282}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

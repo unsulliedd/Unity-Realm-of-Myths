@@ -7,8 +7,8 @@ public class PlayerIdleState : PlayerGroundedState
     public override void Enter()
     {
         base.Enter();
-        player.SetVelocity(0f, 0f);
     }
+
     public override void Exit()
     {
         base.Exit();
@@ -17,10 +17,9 @@ public class PlayerIdleState : PlayerGroundedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (xInput != 0)
-        {
+
+        if (rb.velocity.y == 0 && xInput != 0 && player.CheckIfGrounded())
             stateMachine.ChangeState(player.moveState);
-        }
     }
 
     public override void PhysicUpdate()
