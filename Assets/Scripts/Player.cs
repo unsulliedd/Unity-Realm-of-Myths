@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     #region Variables
     [Header("Move Info")]
     public float moveSpeed = 10f;
+    public float moveSpeedInAir = 7f;
     public int facingDirection = 1;
     [SerializeField] private bool _isFacingRight = true;
 

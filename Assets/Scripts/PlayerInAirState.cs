@@ -19,8 +19,8 @@ public class PlayerInAirState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        player.SetVelocity(xInput * player.moveSpeed, rb.velocity.y);
+        if (xInput != 0)
+            player.SetVelocity(xInput * player.moveSpeedInAir, rb.velocity.y);
 
         if (stateTimer < -0.5f && rb.velocity.y == 0 && player.CheckIfGrounded())
             stateMachine.ChangeState(player.idleState);
