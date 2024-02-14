@@ -74,23 +74,22 @@ public class Player : MonoBehaviour
     public void SetVelocity(float xVelocity, float yVelocity)
     {
         Rigidbody2D.velocity = new Vector2(xVelocity, yVelocity);
-        Flip();
+        FlipController();
+    }
+
+    private void FlipController()
+    {
+        if (InputHandler.HorizontalInput.x < 0 && _isFacingRight)
+            Flip();
+        else if (InputHandler.HorizontalInput.x > 0 && !_isFacingRight)
+            Flip();
     }
 
     private void Flip()
     {
-        if (InputHandler.HorizontalInput.x < 0 && _isFacingRight)
-        {
-            transform.Rotate(0f, 180f, 0f);
-            _isFacingRight = !_isFacingRight;
-            facingDirection *= -1;
-        }
-        else if (InputHandler.HorizontalInput.x > 0 && !_isFacingRight)
-        {
-            transform.Rotate(0f, 180f, 0f);
-            _isFacingRight = !_isFacingRight;
-            facingDirection *= -1;
-        }
+        transform.Rotate(0f, 180f, 0f);
+        _isFacingRight = !_isFacingRight;
+        facingDirection *= -1;
     }
 
     public bool CheckIfGrounded() => Physics2D.OverlapCircle(groundCheck.transform.position, groundCheckDistance, groundLayer);
