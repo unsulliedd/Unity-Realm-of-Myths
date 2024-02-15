@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public PlayerInAirState inAirState;
     public PlayerDashState dashState;
     public PlayerWallSlideState wallSlideState;
+    public PlayerWallJumpState wallJumpState;
     #endregion
 
     #region Components
@@ -29,6 +30,8 @@ public class Player : MonoBehaviour
 
     [Header("Jump Info")]
     public float jumpForce = 25;
+    public float wallJumpTime = 0.4f;
+    public float wallJumpLength = 10;
 
     [Header("Dash Info")]
     public float dashForce = 20;
@@ -41,7 +44,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float groundCheckDistance = 0.45f;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
-    [SerializeField] private float wallCheckDistance = 0.2f;
+    [SerializeField] private float wallCheckDistance = 0.22f;
     #endregion
 
     private void Awake()
@@ -54,6 +57,7 @@ public class Player : MonoBehaviour
         inAirState = new PlayerInAirState(this, stateMachine, "Jump");
         dashState = new PlayerDashState(this, stateMachine, "Dash");
         wallSlideState = new PlayerWallSlideState(this, stateMachine, "WallSlide");
+        wallJumpState = new PlayerWallJumpState(this, stateMachine, "Jump");
 
         Animator = GetComponentInChildren<Animator>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
