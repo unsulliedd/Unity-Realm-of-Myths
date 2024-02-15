@@ -9,6 +9,7 @@ public class PlayerState
     #endregion
     #region Input Variables
     protected float xInput;
+    protected bool jumpInput;
     protected bool dashInput;
     #endregion
     #region Variables
@@ -33,6 +34,7 @@ public class PlayerState
     {
         stateTimer -= Time.deltaTime;
         xInput = player.InputHandler.HorizontalInput.x;
+        jumpInput = player.InputHandler.JumpInput;
         dashInput = player.InputHandler.DashInput;
         player.Animator.SetFloat("yVelocity", rb.velocity.y);
     }
