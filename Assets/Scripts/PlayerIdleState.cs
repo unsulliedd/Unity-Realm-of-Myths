@@ -19,6 +19,9 @@ public class PlayerIdleState : PlayerGroundedState
     {
         base.LogicUpdate();
 
+        if (xInput == player.facingDirection && player.CheckIfTouchingWall())
+            return;
+
         if (rb.velocity.y == 0 && xInput != 0 && player.CheckIfGrounded())
             stateMachine.ChangeState(player.moveState);
     }
