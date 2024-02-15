@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public PlayerJumpState jumpState;
     public PlayerInAirState inAirState;
     public PlayerDashState dashState;
+    public PlayerWallSlideState wallSlideState;
     #endregion
 
     #region Components
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
     [Header("Move Info")]
     public float moveSpeed = 10f;
     public float moveSpeedInAir = 7f;
+    public float moveSpeedOnWall = 8f;
     public int facingDirection = 1;
     [SerializeField] private bool _isFacingRight = true;
 
@@ -51,6 +53,7 @@ public class Player : MonoBehaviour
         jumpState = new PlayerJumpState(this, stateMachine, "Jump");
         inAirState = new PlayerInAirState(this, stateMachine, "Jump");
         dashState = new PlayerDashState(this, stateMachine, "Dash");
+        wallSlideState = new PlayerWallSlideState(this, stateMachine, "WallSlide");
 
         Animator = GetComponentInChildren<Animator>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -94,7 +97,7 @@ public class Player : MonoBehaviour
     }
 
     public bool CheckIfGrounded() => Physics2D.OverlapCircle(groundCheck.transform.position, groundCheckDistance, groundLayer);
-    public bool CheckIfTouchingWall() => Physics2D.Raycast(wallCheck.position, Vector2.right, wallCheckDistance, wallLayer);
+    public bool CheckIfTouchingWall() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDirection, wallCheckDistance, wallLayer);
 
     private void OnDrawGizmos()
     {

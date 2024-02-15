@@ -19,6 +19,7 @@ public class PlayerInAirState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
         if (xInput != 0)
             player.SetVelocity(xInput * player.moveSpeedInAir, rb.velocity.y);
 
@@ -31,6 +32,9 @@ public class PlayerInAirState : PlayerState
             player.InputHandler.DashInputHelper();
             stateMachine.ChangeState(player.dashState);
         }
+
+        if (rb.velocity.y < 0 && player.CheckIfTouchingWall() && !player.CheckIfGrounded())
+            stateMachine.ChangeState(player.wallSlideState);
     }
 
     public override void PhysicUpdate()
