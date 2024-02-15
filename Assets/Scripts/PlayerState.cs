@@ -2,14 +2,19 @@ using UnityEngine;
 
 public class PlayerState
 {
+    #region References
     protected PlayerStateMachine stateMachine;
     protected Player player;
-
+    protected Rigidbody2D rb;
+    #endregion
+    #region Input Variables
     protected float xInput;
     protected bool dashInput;
-    protected Rigidbody2D rb;
+    #endregion
+    #region Variables
     protected float stateTimer;
     private readonly string animationBool;
+    #endregion
 
     public PlayerState(Player _player, PlayerStateMachine _stateMachine, string _animationBool)
     {
@@ -34,7 +39,7 @@ public class PlayerState
 
     public virtual void PhysicUpdate()
     {
-        if (dashInput && !player.CheckIfGrounded())
+        if (!player.CheckIfGrounded() && !player.CheckIfTouchingWall() && stateMachine.currentState != player.dashState)
             player.stateMachine.ChangeState(player.inAirState);
     }
 
