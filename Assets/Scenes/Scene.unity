@@ -370,6 +370,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1d95ce25-b735-452d-8472-5c3372b164a7
     m_ActionName: Player/Dash[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 79900630}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnSlide
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 97435ab6-cab6-4bc4-9482-fe7fa8015419
+    m_ActionName: Player/Slide[/Keyboard/c]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -388,6 +404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DashTimer: 0
+  SlideTimer: 0
 --- !u!1 &117790273
 GameObject:
   m_ObjectHideFlags: 0
