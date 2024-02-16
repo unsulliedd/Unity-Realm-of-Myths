@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public PlayerDashState dashState;
     public PlayerWallSlideState wallSlideState;
     public PlayerWallJumpState wallJumpState;
+    public PlayerSlideState slideState;
     #endregion
 
     #region Components
@@ -38,6 +39,11 @@ public class Player : MonoBehaviour
     public float dashTime = 0.2f;
     public float dashCooldown = 4f;
 
+    [Header("Slide Info")]
+    public float slideSpeed = 7f;
+    public float slideTime = 0.75f;
+    public float slideCooldown = 1.5f;
+
     [Header("Collision Check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
@@ -58,6 +64,7 @@ public class Player : MonoBehaviour
         dashState = new PlayerDashState(this, stateMachine, "Dash");
         wallSlideState = new PlayerWallSlideState(this, stateMachine, "WallSlide");
         wallJumpState = new PlayerWallJumpState(this, stateMachine, "Jump");
+        slideState = new PlayerSlideState(this, stateMachine, "Slide");
 
         Animator = GetComponentInChildren<Animator>();
         Rigidbody2D = GetComponent<Rigidbody2D>();

@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class PlayerGroundedState : PlayerState
 {
     public PlayerGroundedState(Player _player, PlayerStateMachine _stateMachine, string _animationBool) : base(_player, _stateMachine, _animationBool)
@@ -33,6 +29,12 @@ public class PlayerGroundedState : PlayerState
             player.InputHandler.DashTimer = player.dashCooldown;
             player.InputHandler.DashInputHelper();
             stateMachine.ChangeState(player.dashState);
+        }
+
+        if (slideInput && player.InputHandler.SlideTimer < 0 && player.CheckIfGrounded())
+        {
+            player.InputHandler.SlideTimer = player.slideCooldown;
+            stateMachine.ChangeState(player.slideState);
         }
     }
 
