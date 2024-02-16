@@ -6,14 +6,17 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector2 HorizontalInput { get; private set; }
     public bool JumpInput { get; private set; }
     public bool DashInput { get; private set; }
+    public bool SlideInput { get; private set; }
 
     #region Timers
     public float DashTimer;
+    public float SlideTimer;
     #endregion
 
     void Update()
     {
         DashTimer -= Time.deltaTime;
+        SlideTimer -= Time.deltaTime;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -40,4 +43,13 @@ public class PlayerInputHandler : MonoBehaviour
             DashInput = false;
     }
     public void DashInputHelper() => DashInput = false;
+
+    public void OnSlide(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            SlideInput = true;
+
+        if (context.canceled)
+            SlideInput = false;
+    }
 }
