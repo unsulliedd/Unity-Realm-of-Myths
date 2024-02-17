@@ -18,18 +18,25 @@ public class PlayerWallSlideState : PlayerState
     {
         base.LogicUpdate();
 
+        if (xInput == player.facingDirection && player.CheckIfTouchingWall())
+            player.SetVelocity(xInput, 0);
+        else
+            player.SetVelocity(xInput, -player.moveSpeedOnWall);
 
-        if (jumpInput)
+        if (jumpInput && xInput == player.facingDirection)
         {
             player.InputHandler.JumpInputHelper();
             stateMachine.ChangeState(player.wallJumpState);
             return;
         }
 
-        if (xInput == player.facingDirection && player.CheckIfTouchingWall())
-            player.SetVelocity(xInput, 0);
-        else
-            player.SetVelocity(xInput, -player.moveSpeedOnWall);
+        if (dashInput && xInput == player.facingDirection && player.InputHandler.DashTimer < 0)
+        {
+            player.InputHandler.DashTimer = player.dashCooldown;
+            player.InputHandler.DashInputHelper();
+            stateMachine.ChangeState(player.dashState);
+            return;
+        }
 
         if (xInput != player.facingDirection && !player.CheckIfTouchingWall())
             stateMachine.ChangeState(player.inAirState);
