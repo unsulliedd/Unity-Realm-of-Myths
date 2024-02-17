@@ -3,16 +3,16 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     #region State Machine
-    public PlayerStateMachine stateMachine;
+    public PlayerStateMachine StateMachine { get; private set; }
 
-    public PlayerIdleState idleState;
-    public PlayerMoveState moveState;
-    public PlayerJumpState jumpState;
-    public PlayerInAirState inAirState;
-    public PlayerDashState dashState;
-    public PlayerWallSlideState wallSlideState;
-    public PlayerWallJumpState wallJumpState;
-    public PlayerSlideState slideState;
+    public PlayerIdleState IdleState { get; private set; }
+    public PlayerMoveState MoveState { get; private set; }
+    public PlayerJumpState JumpState { get; private set; }
+    public PlayerInAirState InAirState { get; private set; }
+    public PlayerDashState DashState { get; private set; }
+    public PlayerWallSlideState WallSlideState { get; private set; }
+    public PlayerWallJumpState WallJumpState { get; private set; }
+    public PlayerSlideState SlideState { get; private set; }
     #endregion
 
     #region Components
@@ -50,21 +50,21 @@ public class Player : MonoBehaviour
     [SerializeField] private float groundCheckDistance = 0.45f;
     [SerializeField] private Transform wallCheck;
     [SerializeField] private LayerMask wallLayer;
-    [SerializeField] private float wallCheckDistance = 0.22f;
+    [SerializeField] private float wallCheckDistance = 0.25f;
     #endregion
 
     private void Awake()
     {
-        stateMachine = new PlayerStateMachine();
+        StateMachine = new PlayerStateMachine();
 
-        idleState = new PlayerIdleState(this, stateMachine, "Idle");
-        moveState = new PlayerMoveState(this, stateMachine, "Move");
-        jumpState = new PlayerJumpState(this, stateMachine, "Jump");
-        inAirState = new PlayerInAirState(this, stateMachine, "Jump");
-        dashState = new PlayerDashState(this, stateMachine, "Dash");
-        wallSlideState = new PlayerWallSlideState(this, stateMachine, "WallSlide");
-        wallJumpState = new PlayerWallJumpState(this, stateMachine, "Jump");
-        slideState = new PlayerSlideState(this, stateMachine, "Slide");
+        IdleState = new PlayerIdleState(this, StateMachine, "Idle");
+        MoveState = new PlayerMoveState(this, StateMachine, "Move");
+        JumpState = new PlayerJumpState(this, StateMachine, "Jump");
+        InAirState = new PlayerInAirState(this, StateMachine, "Jump");
+        DashState = new PlayerDashState(this, StateMachine, "Dash");
+        WallSlideState = new PlayerWallSlideState(this, StateMachine, "WallSlide");
+        WallJumpState = new PlayerWallJumpState(this, StateMachine, "Jump");
+        SlideState = new PlayerSlideState(this, StateMachine, "Slide");
 
         Animator = GetComponentInChildren<Animator>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -73,17 +73,17 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        stateMachine.Initialize(idleState);
+        StateMachine.Initialize(IdleState);
     }
 
     void Update()
     {
-        stateMachine.currentState.LogicUpdate();
+        StateMachine.currentState.LogicUpdate();
     }
 
     void FixedUpdate()
     {
-        stateMachine.currentState.PhysicUpdate();
+        StateMachine.currentState.PhysicUpdate();
     }
 
     public void SetVelocity(float xVelocity, float yVelocity)

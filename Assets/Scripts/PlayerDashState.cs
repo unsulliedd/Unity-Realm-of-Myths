@@ -19,17 +19,18 @@ public class PlayerDashState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        player.SetVelocity(player.facingDirection * player.dashForce, 0);
 
-        if (stateTimer < 0 && player.CheckIfTouchingWall() && !player.CheckIfGrounded())
-            stateMachine.ChangeState(player.wallSlideState);
+        if (stateTimer < 0 && isTouchingWall && !isGrounded)
+            stateMachine.ChangeState(player.WallSlideState);
 
         if (stateTimer < 0)
-            stateMachine.ChangeState(player.idleState);
+            stateMachine.ChangeState(player.IdleState);
     }
 
     public override void PhysicUpdate()
     {
         base.PhysicUpdate();
+
+        player.SetVelocity(player.facingDirection * player.dashForce, 0);
     }
 }

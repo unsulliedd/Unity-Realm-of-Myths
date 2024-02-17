@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class PlayerWallJumpState : PlayerState
 {
     public PlayerWallJumpState(Player _player, PlayerStateMachine _stateMachine, string _animationBool) : base(_player, _stateMachine, _animationBool)
@@ -25,10 +21,10 @@ public class PlayerWallJumpState : PlayerState
         base.LogicUpdate();
 
         if (stateTimer < 0)
-            stateMachine.ChangeState(player.inAirState);
+            stateMachine.ChangeState(player.InAirState);
 
-        if (player.CheckIfGrounded())
-            stateMachine.ChangeState(player.idleState);
+        if (isGrounded)
+            stateMachine.ChangeState(player.IdleState);
     }
 
     public override void PhysicUpdate()

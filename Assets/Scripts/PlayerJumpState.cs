@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PlayerJumpState : PlayerState
 {
     public PlayerJumpState(Player _player, PlayerStateMachine _stateMachine, string _animationBool) : base(_player, _stateMachine, _animationBool)
@@ -22,7 +20,7 @@ public class PlayerJumpState : PlayerState
         base.LogicUpdate();
 
         if (rb.velocity.y != 0)
-            stateMachine.ChangeState(player.inAirState);
+            stateMachine.ChangeState(player.InAirState);
     }
 
     public override void PhysicUpdate()

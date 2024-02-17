@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PlayerInAirState : PlayerState
 {
     public PlayerInAirState(Player _player, PlayerStateMachine _stateMachine, string _animationBool) : base(_player, _stateMachine, _animationBool)
@@ -20,25 +18,26 @@ public class PlayerInAirState : PlayerState
     {
         base.LogicUpdate();
 
-        if (xInput != 0)
-            player.SetVelocity(xInput * player.moveSpeedInAir, rb.velocity.y);
 
-        if (stateTimer < -0.5f && rb.velocity.y == 0 && player.CheckIfGrounded())
-            stateMachine.ChangeState(player.idleState);
+        if (stateTimer < -0.5f && rb.velocity.y == 0 && isGrounded)
+            stateMachine.ChangeState(player.IdleState);
 
         if (dashInput && player.InputHandler.DashTimer < 0)
         {
             player.InputHandler.DashTimer = player.dashCooldown;
             player.InputHandler.DashInputHelper();
-            stateMachine.ChangeState(player.dashState);
+            stateMachine.ChangeState(player.DashState);
         }
 
-        if (rb.velocity.y < 0 && player.CheckIfTouchingWall() && !player.CheckIfGrounded())
-            stateMachine.ChangeState(player.wallSlideState);
+        if (rb.velocity.y < 0 && isTouchingWall && !isGrounded)
+            stateMachine.ChangeState(player.WallSlideState);
     }
 
     public override void PhysicUpdate()
     {
         base.PhysicUpdate();
+
+        if (xInput != 0)
+            player.SetVelocity(xInput * player.moveSpeedInAir, rb.velocity.y);
     }
 }

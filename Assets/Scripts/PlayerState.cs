@@ -15,6 +15,8 @@ public class PlayerState
     #endregion
     #region Variables
     protected float stateTimer;
+    protected bool isGrounded;
+    protected bool isTouchingWall;
     private readonly string animationBool;
     #endregion
 
@@ -25,8 +27,15 @@ public class PlayerState
         this.animationBool = _animationBool;
     }
 
+    public virtual void CollisionChecks() 
+    { 
+        isGrounded = player.CheckIfGrounded();
+        isTouchingWall = player.CheckIfTouchingWall();
+    }
+
     public virtual void Enter()
     {
+        CollisionChecks();
         player.Animator.SetBool(animationBool, true);
         rb = player.Rigidbody2D;
     }
@@ -34,17 +43,20 @@ public class PlayerState
     public virtual void LogicUpdate()
     {
         stateTimer -= Time.deltaTime;
+
         xInput = player.InputHandler.HorizontalInput.x;
         jumpInput = player.InputHandler.JumpInput;
         dashInput = player.InputHandler.DashInput;
         slideInput = player.InputHandler.SlideInput;
+
         player.Animator.SetFloat("yVelocity", rb.velocity.y);
     }
 
     public virtual void PhysicUpdate()
     {
-        if (!player.CheckIfGrounded() && !player.CheckIfTouchingWall() && stateMachine.currentState != player.dashState)
-            player.stateMachine.ChangeState(player.inAirState);
+        CollisionChecks();
+        if (!isGrounded && !isTouchingWall && stateMachine.currentState != player.DashState)
+            player.StateMachine.ChangeState(player.InAirState);
     }
 
     public virtual void Exit()

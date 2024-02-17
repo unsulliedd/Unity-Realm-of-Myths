@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class PlayerMoveState : PlayerGroundedState
 {
     public PlayerMoveState(Player _player, PlayerStateMachine _stateMachine, string _animationBool) : base(_player, _stateMachine, _animationBool)
@@ -20,13 +16,14 @@ public class PlayerMoveState : PlayerGroundedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        player.SetVelocity(xInput * player.moveSpeed, rb.velocity.y);
-        if (xInput == 0 || player.CheckIfTouchingWall())
-            stateMachine.ChangeState(player.idleState);
+        if (xInput == 0 || isTouchingWall)
+            stateMachine.ChangeState(player.IdleState);
     }
 
     public override void PhysicUpdate()
     {
         base.PhysicUpdate();
+
+        player.SetVelocity(xInput * player.moveSpeed, rb.velocity.y);
     }
 }
