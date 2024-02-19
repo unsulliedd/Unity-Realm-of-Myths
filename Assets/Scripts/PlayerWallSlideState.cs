@@ -26,9 +26,9 @@ public class PlayerWallSlideState : PlayerState
             return;
         }
 
-        if (dashInput && xInput == -player.facingDirection && player.InputHandler.DashTimer < 0)
+        if (dashInput && xInput == -player.facingDirection && player.InputHandler.dashTimer < 0)
         {
-            player.InputHandler.DashTimer = player.dashCooldown;
+            player.InputHandler.dashTimer = player.dashCooldown;
             player.InputHandler.DashInputHelper();
             stateMachine.ChangeState(player.DashState);
             return;
@@ -36,7 +36,7 @@ public class PlayerWallSlideState : PlayerState
 
         if (xInput != player.facingDirection && !isTouchingWall)
             stateMachine.ChangeState(player.InAirState);
-        else if (player.CheckIfGrounded())
+        else if (isGrounded)
             stateMachine.ChangeState(player.IdleState);
     }
 

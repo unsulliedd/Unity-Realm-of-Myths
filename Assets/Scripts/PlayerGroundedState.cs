@@ -19,21 +19,21 @@ public class PlayerGroundedState : PlayerState
         base.LogicUpdate();
 
         if (jumpInput && isGrounded)
-        {            
+        {
             player.InputHandler.JumpInputHelper();
             stateMachine.ChangeState(player.JumpState);
         }
 
-        if (dashInput && player.InputHandler.DashTimer < 0)
+        if (dashInput && player.InputHandler.dashTimer < 0)
         {
-            player.InputHandler.DashTimer = player.dashCooldown;
+            player.InputHandler.dashTimer = player.dashCooldown;
             player.InputHandler.DashInputHelper();
             stateMachine.ChangeState(player.DashState);
         }
 
-        if (slideInput && player.InputHandler.SlideTimer < 0 && isGrounded)
+        if (slideInput && player.InputHandler.slideTimer < 0 && isGrounded)
         {
-            player.InputHandler.SlideTimer = player.slideCooldown;
+            player.InputHandler.slideTimer = player.slideCooldown;
             stateMachine.ChangeState(player.SlideState);
         }
     }

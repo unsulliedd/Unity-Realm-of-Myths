@@ -18,13 +18,12 @@ public class PlayerInAirState : PlayerState
     {
         base.LogicUpdate();
 
-
         if (stateTimer < -0.5f && rb.velocity.y == 0 && isGrounded)
             stateMachine.ChangeState(player.IdleState);
 
-        if (dashInput && player.InputHandler.DashTimer < 0)
+        if (dashInput && player.InputHandler.dashTimer < 0)
         {
-            player.InputHandler.DashTimer = player.dashCooldown;
+            player.InputHandler.dashTimer = player.dashCooldown;
             player.InputHandler.DashInputHelper();
             stateMachine.ChangeState(player.DashState);
         }

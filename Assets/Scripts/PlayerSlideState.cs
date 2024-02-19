@@ -28,9 +28,9 @@ public class PlayerSlideState : PlayerGroundedState
             stateMachine.ChangeState(player.JumpState);
         }
 
-        if (dashInput && player.InputHandler.DashTimer < 0)
+        if (dashInput && player.InputHandler.dashTimer < 0)
         {
-            player.InputHandler.DashTimer = player.dashCooldown;
+            player.InputHandler.dashTimer = player.dashCooldown;
             player.InputHandler.DashInputHelper();
             stateMachine.ChangeState(player.DashState);
         }
