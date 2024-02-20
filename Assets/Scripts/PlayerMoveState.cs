@@ -16,8 +16,11 @@ public class PlayerMoveState : PlayerGroundedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
         if (xInput == 0 || isTouchingWall)
             stateMachine.ChangeState(player.IdleState);
+        else if (slideInput)
+            stateMachine.ChangeState(player.SlideState);
     }
 
     public override void PhysicUpdate()
