@@ -21,7 +21,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        HorizontalInput = context.ReadValue<Vector2>();
+        HorizontalInput = context.ReadValue<Vector2>().normalized;
     }
 
     public void OnJump(InputAction.CallbackContext context)
