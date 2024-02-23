@@ -17,6 +17,7 @@ public class PlayerPrimaryAttackState : PlayerState
         if (comboCounter >= player.comboCount || Time.time >= lastTimeAttacked + timeBetweenAttacks)
             comboCounter = 0;
         player.Animator.SetInteger("ComboCounter", comboCounter);
+        stateTimer = 0.1f;
     }
 
     public override void Exit()
@@ -30,6 +31,9 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        if (stateTimer < 0)
+            player.SetZeroVelocity();
 
         if (animationTriggered)            
             stateMachine.ChangeState(player.IdleState);

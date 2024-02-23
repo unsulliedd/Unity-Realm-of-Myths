@@ -97,6 +97,8 @@ public class Player : MonoBehaviour
         StateMachine.currentState.PhysicUpdate();
     }
 
+    public void SetZeroVelocity() => Rigidbody2D.velocity = Vector2.zero;
+
     public void SetVelocity(float xVelocity, float yVelocity)
     {
         Rigidbody2D.velocity = new Vector2(xVelocity, yVelocity);
