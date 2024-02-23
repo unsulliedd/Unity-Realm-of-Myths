@@ -30,6 +30,9 @@ public class Player : MonoBehaviour
     public int facingDirection = 1;
     [SerializeField] private bool _isFacingRight = true;
 
+    [Header("Attack Info")]
+    public int comboCount = 3;
+
     [Header("Jump Info")]
     public float jumpForce = 25;
     public float wallJumpTime = 0.25f;
