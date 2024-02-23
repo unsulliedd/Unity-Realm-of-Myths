@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public PlayerWallSlideState WallSlideState { get; private set; }
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerSlideState SlideState { get; private set; }
+    public PlayerPrimaryAttackState PrimaryAttackState { get; private set; }
     #endregion
 
     #region Components
@@ -71,6 +72,7 @@ public class Player : MonoBehaviour
         WallSlideState = new PlayerWallSlideState(this, StateMachine, "WallSlide");
         WallJumpState = new PlayerWallJumpState(this, StateMachine, "Jump");
         SlideState = new PlayerSlideState(this, StateMachine, "Slide");
+        PrimaryAttackState = new PlayerPrimaryAttackState(this, StateMachine, "PrimaryAttack");
 
         Animator = GetComponentInChildren<Animator>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
