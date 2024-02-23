@@ -16,6 +16,7 @@ public class PlayerPrimaryAttackState : PlayerState
 
         if (comboCounter >= player.comboCount || Time.time >= lastTimeAttacked + timeBetweenAttacks)
             comboCounter = 0;
+
         player.Animator.SetInteger("ComboCounter", comboCounter);
         stateTimer = 0.1f;
     }
@@ -24,6 +25,7 @@ public class PlayerPrimaryAttackState : PlayerState
     {
         base.Exit();
 
+        player.StartCoroutine("SetPlayerBusyTime", .15f);
         comboCounter++;
         lastTimeAttacked = Time.time;
     }

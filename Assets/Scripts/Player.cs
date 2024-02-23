@@ -1,7 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public bool IsPlayerBusy {get; private set; }
+
     #region State Machine
     public PlayerStateMachine StateMachine { get; private set; }
 
@@ -105,6 +108,13 @@ public class Player : MonoBehaviour
         FlipController();
     }
 
+    IEnumerator SetPlayerBusyTime(float time)
+    {
+        IsPlayerBusy = true;
+        yield return new WaitForSeconds(time);
+        IsPlayerBusy = false;
+    }
+
     private void FlipController()
     {
         if (InputHandler.HorizontalInput.x < 0 && _isFacingRight)
@@ -129,6 +139,7 @@ public class Player : MonoBehaviour
 
         doubleJumpTimer -= Time.deltaTime;
     }
+
 
     public void AnimationTrigger() => StateMachine.currentState.AnimationFinishTrigger();
 
