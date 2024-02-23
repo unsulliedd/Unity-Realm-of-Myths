@@ -20,19 +20,19 @@ public class PlayerSlideState : PlayerGroundedState
         base.LogicUpdate();
 
         if (stateTimer < 0 || !slideInput)
-            stateMachine.ChangeState(player.idleState);
+            stateMachine.ChangeState(player.IdleState);
 
-        if (jumpInput && player.CheckIfGrounded())
+        if (jumpInput && isGrounded)
         {
             player.InputHandler.JumpInputHelper();
-            stateMachine.ChangeState(player.jumpState);
+            stateMachine.ChangeState(player.JumpState);
         }
 
-        if (dashInput && player.InputHandler.DashTimer < 0)
+        if (dashInput && player.InputHandler.dashTimer < 0)
         {
-            player.InputHandler.DashTimer = player.dashCooldown;
+            player.InputHandler.dashTimer = player.dashCooldown;
             player.InputHandler.DashInputHelper();
-            stateMachine.ChangeState(player.dashState);
+            stateMachine.ChangeState(player.DashState);
         }
     }
 

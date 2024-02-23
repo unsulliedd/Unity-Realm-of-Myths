@@ -9,19 +9,19 @@ public class PlayerInputHandler : MonoBehaviour
     public bool SlideInput { get; private set; }
 
     #region Timers
-    public float DashTimer;
-    public float SlideTimer;
+    public float dashTimer;
+    public float slideTimer;
     #endregion
 
     void Update()
     {
-        DashTimer -= Time.deltaTime;
-        SlideTimer -= Time.deltaTime;
+        dashTimer -= Time.deltaTime;
+        slideTimer -= Time.deltaTime;
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        HorizontalInput = context.ReadValue<Vector2>();
+        HorizontalInput = context.ReadValue<Vector2>().normalized;
     }
 
     public void OnJump(InputAction.CallbackContext context)
