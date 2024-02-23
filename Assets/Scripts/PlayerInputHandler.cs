@@ -7,6 +7,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool JumpInput { get; private set; }
     public bool DashInput { get; private set; }
     public bool SlideInput { get; private set; }
+    public bool AttackInput { get; private set; }
 
     #region Timers
     public float dashTimer;
@@ -52,4 +53,14 @@ public class PlayerInputHandler : MonoBehaviour
         if (context.canceled)
             SlideInput = false;
     }
+
+    public void OnAttack(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            AttackInput = true;
+
+        if (context.canceled)
+            AttackInput = false;
+    }
+    public void AttackInputHelper() => AttackInput = false;
 }

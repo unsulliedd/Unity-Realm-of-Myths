@@ -1,7 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public bool IsPlayerBusy {get; private set; }
+
     #region State Machine
     public PlayerStateMachine StateMachine { get; private set; }
 
@@ -13,6 +16,7 @@ public class Player : MonoBehaviour
     public PlayerWallSlideState WallSlideState { get; private set; }
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerSlideState SlideState { get; private set; }
+    public PlayerPrimaryAttackState PrimaryAttackState { get; private set; }
     #endregion
 
     #region Components
@@ -28,6 +32,10 @@ public class Player : MonoBehaviour
     public float moveSpeedOnWall = 8f;
     public int facingDirection = 1;
     [SerializeField] private bool _isFacingRight = true;
+
+    [Header("Attack Info")]
+    public int comboCount = 3;
+    public Vector2[] attackMovement;
 
     [Header("Jump Info")]
     public float jumpForce = 25;
@@ -71,6 +79,7 @@ public class Player : MonoBehaviour
         WallSlideState = new PlayerWallSlideState(this, StateMachine, "WallSlide");
         WallJumpState = new PlayerWallJumpState(this, StateMachine, "Jump");
         SlideState = new PlayerSlideState(this, StateMachine, "Slide");
+        PrimaryAttackState = new PlayerPrimaryAttackState(this, StateMachine, "Attack");
 
         Animator = GetComponentInChildren<Animator>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -92,10 +101,19 @@ public class Player : MonoBehaviour
         StateMachine.currentState.PhysicUpdate();
     }
 
+    public void SetZeroVelocity() => Rigidbody2D.velocity = Vector2.zero;
+
     public void SetVelocity(float xVelocity, float yVelocity)
     {
         Rigidbody2D.velocity = new Vector2(xVelocity, yVelocity);
         FlipController();
+    }
+
+    IEnumerator SetPlayerBusyTime(float time)
+    {
+        IsPlayerBusy = true;
+        yield return new WaitForSeconds(time);
+        IsPlayerBusy = false;
     }
 
     private void FlipController()
@@ -122,6 +140,9 @@ public class Player : MonoBehaviour
 
         doubleJumpTimer -= Time.deltaTime;
     }
+
+
+    public void AnimationTrigger() => StateMachine.currentState.AnimationFinishTrigger();
 
     public bool CheckIfGrounded() => Physics2D.OverlapCircle(groundCheck.transform.position, groundCheckDistance, groundLayer);
     public bool CheckIfTouchingWall() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDirection, wallCheckDistance, wallLayer);

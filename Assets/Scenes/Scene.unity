@@ -223,13 +223,20 @@ MonoBehaviour:
   moveSpeedOnWall: 8
   facingDirection: 1
   _isFacingRight: 1
+  comboCount: 3
+  attackMovement:
+  - {x: 3, y: 1.5}
+  - {x: 1, y: 1.5}
+  - {x: 4, y: 2.5}
   jumpForce: 25
   wallJumpTime: 0.25
   wallJumpLength: 10
   amountOfJumps: 2
+  firstJumpCompleted: 0
   doubleJumpCooldown: 2
+  doubleJumpTimer: 0
   coyoteTime: 0.2
-  coyoteTimeCounter: 0
+  coyoteJumpTimer: 0
   dashForce: 20
   dashTime: 0.2
   dashCooldown: 4
@@ -393,6 +400,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 97435ab6-cab6-4bc4-9482-fe7fa8015419
     m_ActionName: Player/Slide[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 79900630}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f0981a4f-3fa3-4866-a7c0-bd1b250307cc
+    m_ActionName: Player/Attack[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -2096,6 +2119,7 @@ GameObject:
   - component: {fileID: 724509093}
   - component: {fileID: 724509095}
   - component: {fileID: 724509094}
+  - component: {fileID: 724509096}
   m_Layer: 3
   m_Name: Animator
   m_TagString: Untagged
@@ -2191,6 +2215,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &724509096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724509092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da1a3085d5811eb40855e1dcc657450e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &776403425
 GameObject:
   m_ObjectHideFlags: 0
