@@ -27,6 +27,12 @@ public class PlayerGroundedState : PlayerState
             stateMachine.ChangeState(player.JumpState);
         }
 
+        else if (attackInput)
+        {
+            player.InputHandler.AttackInputHelper();
+            stateMachine.ChangeState(player.PrimaryAttackState);
+        }
+
         else if (dashInput && player.InputHandler.dashTimer < 0)
         {
             player.InputHandler.dashTimer = player.dashCooldown;

@@ -125,6 +125,8 @@ public class Player : MonoBehaviour
         doubleJumpTimer -= Time.deltaTime;
     }
 
+    public void AnimationTrigger() => StateMachine.currentState.AnimationFinishTrigger();
+
     public bool CheckIfGrounded() => Physics2D.OverlapCircle(groundCheck.transform.position, groundCheckDistance, groundLayer);
     public bool CheckIfTouchingWall() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDirection, wallCheckDistance, wallLayer);
 

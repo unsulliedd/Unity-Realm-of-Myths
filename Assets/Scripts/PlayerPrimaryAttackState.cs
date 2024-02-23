@@ -17,6 +17,8 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if (animationTriggered)            
+            stateMachine.ChangeState(player.IdleState);
     }
 
     public override void PhysicUpdate()

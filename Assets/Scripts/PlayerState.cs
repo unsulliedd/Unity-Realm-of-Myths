@@ -12,11 +12,13 @@ public class PlayerState
     protected bool jumpInput;
     protected bool dashInput;
     protected bool slideInput;
+    protected bool attackInput;
     #endregion
     #region Variables
     protected float stateTimer;
     protected bool isGrounded;
     protected bool isTouchingWall;
+    protected bool animationTriggered;
     private readonly string animationBool;
     #endregion
 
@@ -38,6 +40,7 @@ public class PlayerState
         CollisionChecks();
         player.Animator.SetBool(animationBool, true);
         rb = player.Rigidbody2D;
+        animationTriggered = false;
     }
 
     public virtual void LogicUpdate()
@@ -50,6 +53,7 @@ public class PlayerState
         jumpInput = player.InputHandler.JumpInput;
         dashInput = player.InputHandler.DashInput;
         slideInput = player.InputHandler.SlideInput;
+        attackInput = player.InputHandler.AttackInput;
 
         player.Animator.SetFloat("yVelocity", rb.velocity.y);
     }
@@ -65,4 +69,6 @@ public class PlayerState
     {
         player.Animator.SetBool(animationBool, false);
     }
+
+    public virtual void AnimationFinishTrigger() => animationTriggered = true;
 }
