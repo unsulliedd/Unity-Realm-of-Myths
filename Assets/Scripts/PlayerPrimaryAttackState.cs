@@ -5,6 +5,7 @@ public class PlayerPrimaryAttackState : PlayerState
     private int comboCounter;
     private float lastTimeAttacked;
     private float timeBetweenAttacks = 0.5f;
+    private float attackDir;
 
     public PlayerPrimaryAttackState(Player _player, PlayerStateMachine _stateMachine, string _animationBool) : base(_player, _stateMachine, _animationBool)
     {
@@ -18,6 +19,10 @@ public class PlayerPrimaryAttackState : PlayerState
             comboCounter = 0;
 
         player.Animator.SetInteger("ComboCounter", comboCounter);
+
+        FindAttackDirection();
+
+        player.SetVelocity(player.attackMovement[comboCounter].x * attackDir, player.attackMovement[comboCounter].y);
         stateTimer = 0.1f;
     }
 
@@ -44,5 +49,12 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void PhysicUpdate()
     {
         base.PhysicUpdate();
+    }
+
+    private void FindAttackDirection()
+    {
+        attackDir = player.facingDirection;
+        if (xInput != 0)
+            attackDir = xInput;
     }
 }

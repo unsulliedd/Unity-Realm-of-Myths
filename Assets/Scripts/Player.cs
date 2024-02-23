@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
 
     [Header("Attack Info")]
     public int comboCount = 3;
+    public Vector2[] attackMovement;
 
     [Header("Jump Info")]
     public float jumpForce = 25;

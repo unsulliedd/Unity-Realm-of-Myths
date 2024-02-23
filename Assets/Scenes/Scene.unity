@@ -223,6 +223,11 @@ MonoBehaviour:
   moveSpeedOnWall: 8
   facingDirection: 1
   _isFacingRight: 1
+  comboCount: 3
+  attackMovement:
+  - {x: 3, y: 1.5}
+  - {x: 1, y: 1.5}
+  - {x: 4, y: 2.5}
   jumpForce: 25
   wallJumpTime: 0.25
   wallJumpLength: 10
