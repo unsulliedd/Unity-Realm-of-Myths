@@ -18,8 +18,36 @@ public class PlayerInAirState : PlayerState
     {
         base.LogicUpdate();
 
-        if (stateTimer < -0.5f && rb.velocity.y == 0 && isGrounded)
+        if (xInput != 0)
+            player.SetVelocity(xInput * player.moveSpeedInAir, rb.velocity.y);
+
+        if (rb.velocity.y == 0 && isGrounded)
             stateMachine.ChangeState(player.IdleState);
+
+        if (rb.velocity.y < 0 && isTouchingWall && !isGrounded)
+            stateMachine.ChangeState(player.WallSlideState);
+
+        if (jumpInput)
+        {
+            if (player.firstJumpCompleted && player.doubleJumpTimer < 0 && player.JumpState.CanDoubleJump())
+            {
+                player.doubleJumpTimer = player.doubleJumpCooldown;
+                player.firstJumpCompleted = false;
+                JumpState();
+            }
+            else if (player.coyoteJumpTimer > 0)
+            {
+                player.coyoteJumpTimer = player.coyoteTime;
+                player.firstJumpCompleted = true;
+                player.JumpState.ResetJumps();
+                JumpState();
+            }
+            else
+            {
+                player.InputHandler.JumpInputHelper();
+                return;
+            }
+        }
 
         if (dashInput && player.InputHandler.dashTimer < 0)
         {
@@ -27,16 +55,16 @@ public class PlayerInAirState : PlayerState
             player.InputHandler.DashInputHelper();
             stateMachine.ChangeState(player.DashState);
         }
-
-        if (rb.velocity.y < 0 && isTouchingWall && !isGrounded)
-            stateMachine.ChangeState(player.WallSlideState);
     }
 
     public override void PhysicUpdate()
     {
         base.PhysicUpdate();
+    }
 
-        if (xInput != 0)
-            player.SetVelocity(xInput * player.moveSpeedInAir, rb.velocity.y);
+    private void JumpState()
+    {
+        player.InputHandler.JumpInputHelper();
+        stateMachine.ChangeState(player.JumpState);
     }
 }

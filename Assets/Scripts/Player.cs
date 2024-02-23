@@ -31,8 +31,14 @@ public class Player : MonoBehaviour
 
     [Header("Jump Info")]
     public float jumpForce = 25;
-    public float wallJumpTime = 0.4f;
+    public float wallJumpTime = 0.25f;
     public float wallJumpLength = 10;
+    public int amountOfJumps = 2;
+    public bool firstJumpCompleted;
+    public float doubleJumpCooldown = 2.5f;
+    public float doubleJumpTimer;
+    public float coyoteTime = 0.2f;
+    public float coyoteJumpTimer;
 
     [Header("Dash Info")]
     public float dashForce = 20;
@@ -105,6 +111,16 @@ public class Player : MonoBehaviour
         transform.Rotate(0f, 180f, 0f);
         _isFacingRight = !_isFacingRight;
         facingDirection *= -1;
+    }
+
+    public void UpdateJumpCounters()
+    {
+        if (CheckIfGrounded())
+            coyoteJumpTimer = coyoteTime;
+        else
+            coyoteJumpTimer -= Time.deltaTime;
+
+        doubleJumpTimer -= Time.deltaTime;
     }
 
     public bool CheckIfGrounded() => Physics2D.OverlapCircle(groundCheck.transform.position, groundCheckDistance, groundLayer);

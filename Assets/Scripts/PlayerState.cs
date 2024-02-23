@@ -44,6 +44,8 @@ public class PlayerState
     {
         stateTimer -= Time.deltaTime;
 
+        player.UpdateJumpCounters();
+
         xInput = player.InputHandler.HorizontalInput.x;
         jumpInput = player.InputHandler.JumpInput;
         dashInput = player.InputHandler.DashInput;

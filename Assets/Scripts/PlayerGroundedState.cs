@@ -7,6 +7,8 @@ public class PlayerGroundedState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        player.firstJumpCompleted = false;
+        player.JumpState.ResetJumps();
     }
 
     public override void Exit()
@@ -20,18 +22,19 @@ public class PlayerGroundedState : PlayerState
 
         if (jumpInput && isGrounded)
         {
+            player.firstJumpCompleted = true;
             player.InputHandler.JumpInputHelper();
             stateMachine.ChangeState(player.JumpState);
         }
 
-        if (dashInput && player.InputHandler.dashTimer < 0)
+        else if (dashInput && player.InputHandler.dashTimer < 0)
         {
             player.InputHandler.dashTimer = player.dashCooldown;
             player.InputHandler.DashInputHelper();
             stateMachine.ChangeState(player.DashState);
         }
 
-        if (slideInput && player.InputHandler.slideTimer < 0 && isGrounded)
+        else if (slideInput && player.InputHandler.slideTimer < 0)
         {
             player.InputHandler.slideTimer = player.slideCooldown;
             stateMachine.ChangeState(player.SlideState);
