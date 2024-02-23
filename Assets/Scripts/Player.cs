@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
         WallSlideState = new PlayerWallSlideState(this, StateMachine, "WallSlide");
         WallJumpState = new PlayerWallJumpState(this, StateMachine, "Jump");
         SlideState = new PlayerSlideState(this, StateMachine, "Slide");
-        PrimaryAttackState = new PlayerPrimaryAttackState(this, StateMachine, "PrimaryAttack");
+        PrimaryAttackState = new PlayerPrimaryAttackState(this, StateMachine, "Attack");
 
         Animator = GetComponentInChildren<Animator>();
         Rigidbody2D = GetComponent<Rigidbody2D>();
