@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PlayerJumpState : PlayerState
 {
     private int amountOfJumpsLeft;
@@ -26,7 +24,7 @@ public class PlayerJumpState : PlayerState
     {
         base.LogicUpdate();
 
-        if (rb.velocity.y != 0)
+        if (!isGrounded)
             stateMachine.ChangeState(player.InAirState);
     }
 

@@ -19,7 +19,7 @@ public class PlayerMoveState : PlayerGroundedState
 
         if (xInput == 0 || isTouchingWall)
             stateMachine.ChangeState(player.IdleState);
-        else if (slideInput)
+        else if (slideInput && player.InputHandler.slideTimer < 0)
             stateMachine.ChangeState(player.SlideState);
     }
 

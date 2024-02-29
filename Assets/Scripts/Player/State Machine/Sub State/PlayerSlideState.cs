@@ -21,19 +21,6 @@ public class PlayerSlideState : PlayerGroundedState
 
         if (stateTimer < 0 || !slideInput)
             stateMachine.ChangeState(player.IdleState);
-
-        if (jumpInput && isGrounded)
-        {
-            player.InputHandler.JumpInputHelper();
-            stateMachine.ChangeState(player.JumpState);
-        }
-
-        if (dashInput && player.InputHandler.dashTimer < 0)
-        {
-            player.InputHandler.dashTimer = player.dashCooldown;
-            player.InputHandler.DashInputHelper();
-            stateMachine.ChangeState(player.DashState);
-        }
     }
 
     public override void PhysicUpdate()

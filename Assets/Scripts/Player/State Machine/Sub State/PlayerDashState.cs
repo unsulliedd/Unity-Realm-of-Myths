@@ -13,7 +13,7 @@ public class PlayerDashState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        player.SetVelocity(0, 0);
+        player.SetZeroVelocity();
     }
 
     public override void LogicUpdate()
@@ -22,8 +22,7 @@ public class PlayerDashState : PlayerState
 
         if (stateTimer < 0 && isTouchingWall && !isGrounded)
             stateMachine.ChangeState(player.WallSlideState);
-
-        if (stateTimer < 0)
+        else if (stateTimer < 0)
             stateMachine.ChangeState(player.IdleState);
     }
 

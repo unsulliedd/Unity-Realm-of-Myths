@@ -26,20 +26,17 @@ public class PlayerGroundedState : PlayerState
             player.InputHandler.JumpInputHelper();
             stateMachine.ChangeState(player.JumpState);
         }
-
         else if (attackInput)
         {
             player.InputHandler.AttackInputHelper();
             stateMachine.ChangeState(player.PrimaryAttackState);
         }
-
         else if (dashInput && player.InputHandler.dashTimer < 0)
         {
             player.InputHandler.dashTimer = player.dashCooldown;
             player.InputHandler.DashInputHelper();
             stateMachine.ChangeState(player.DashState);
         }
-
         else if (slideInput && player.InputHandler.slideTimer < 0)
         {
             player.InputHandler.slideTimer = player.slideCooldown;
